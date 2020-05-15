@@ -6,10 +6,16 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6.3-stretch-node
-    executor: ruby/default
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+          name: install dependencies
+          command: |
+            npm install
+            gem install percy-cli
+      # - run: 
+      #     name: run our tests
+      #     command: |
+      #       npm run build
+      #       percy snapshot public
